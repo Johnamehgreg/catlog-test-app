@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.app-input {
+  @apply border border-[#C2C2C24D];
+}
+
+.primary-text {
+  @apply leading-tight text-primary-0 text-right font-semibold;
+}
+
+
+.default-text {
+  @apply text-[#1E1E1E] dark:text-white;
+}
+
+
+
+.app-border {
+  @apply border-[#E5E5E5] border-[0.5px];
+}
+
+.primary-bg {
+  @apply bg-white dark:bg-[#1F2937]
+}
+
+.secondary-bg {
+  @apply bg-[#F7F5FF] dark:bg-[#1f2937f7]
+}
+
+.round-card {
+  @apply  p-2 rounded-full bg-white dark:bg-gray-800
+}
+
+.app-card {
+  @apply dark:bg-[#1F1F1F] bg-white
+}
+
+
+.action-sheet-title-text {
+  @apply text-[18px]  flex-shrink;
+}
+
+
+.skeleton-bg{
+  @apply  bg-[#1F1F1F] dark:bg-[#2A2A2A]
+}

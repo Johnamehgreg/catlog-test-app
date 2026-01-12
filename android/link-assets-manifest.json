@@ -1,0 +1,45 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/FHOscarTest-Regular.otf",
+      "sha1": "d8ef77dcae5a4349fe3573a9547c45373f6d8917"
+    },
+    {
+      "path": "src/assets/fonts/Inter-Medium.ttf",
+      "sha1": "3b9f3360ca812f2076db0bfc8bed4cfdd951e74f"
+    },
+    {
+      "path": "src/assets/fonts/FHOscarTest-Black.otf",
+      "sha1": "85e69e41a1d37de1b7661e1eb9fb0392a67db677"
+    },
+    {
+      "path": "src/assets/fonts/FHOscarTest-Medium.otf",
+      "sha1": "3fa914475ba2b9fa87bcc33a1a494b37e4e71df7"
+    },
+    {
+      "path": "src/assets/fonts/FHOscarTest-SemiBold.otf",
+      "sha1": "614ae49b74db18fe5b56ef5daa4dcf7428e8aaee"
+    },
+    {
+      "path": "src/assets/fonts/Inter-Bold.ttf",
+      "sha1": "38827ef0e3ed2ffe35747e4debd073cd923d3353"
+    },
+    {
+      "path": "src/assets/fonts/Inter-Regular.ttf",
+      "sha1": "b9984093c0b2b612da5e58e4d4e1ba8c255353dc"
+    },
+    {
+      "path": "src/assets/fonts/FHOscarTest-Bold.otf",
+      "sha1": "179c56805f7321dfbbccb9c9bae9e51bec2ea1ad"
+    },
+    {
+      "path": "src/assets/fonts/Inter-Black.ttf",
+      "sha1": "1a88281108c184915828226c768844e63e09b3f9"
+    },
+    {
+      "path": "src/assets/fonts/FHOscarTest-Light.otf",
+      "sha1": "3c9c220879b0c503b8b65a8ce8f815c048e0bfa2"
+    }
+  ]
+}
