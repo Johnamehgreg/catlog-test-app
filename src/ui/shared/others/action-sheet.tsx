@@ -13,7 +13,7 @@ import { useKeyboard } from '@core/hooks/logic/use-keyboard';
 import { textStyles } from '@core/styles/text-style';
 import { s } from '@core/utils/scale';
 import React from 'react';
-import { Pressable } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 interface Props {
   open: boolean;
@@ -48,7 +48,7 @@ export const ActionSheetComponent: React.FC<Props> = ({
         className={`w-full border-transparent max-h-[80vh]   outline-none  ${classNameContent}`}
       >
 
-        <Pressable
+        <TouchableOpacity
           className='z-[200] primary-bg absolute rounded-full'
           style={{
             height: s(30),
@@ -56,19 +56,18 @@ export const ActionSheetComponent: React.FC<Props> = ({
             top: s(-50),
             right: s(10),
           }}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           onPress={() => close()}>
           <Box className='flex-row h-full items-center justify-center '
             style={{
               gap: s(3)
             }}
           >
-            <IconCloseCircle className='size-4' fill={isDark ? 'white' : 'black'} />
+            <IconCloseCircle className='size-4 z-[1]' fill={isDark ? 'white' : 'black'} />
             <Text style={textStyles?.textSm} className='text-center   default-text'>
               Close
             </Text>
           </Box>
-        </Pressable>
+        </TouchableOpacity>
 
         {!hideIndicator && (
           <ActionsheetDragIndicatorWrapper
