@@ -82,73 +82,97 @@ const AppTab = ({
     switch (variant) {
       case 'primary':
         return {
-          tab: `rounded-full ${isActive
-            ? 'secondary-bg '
-            : 'bg-background-gray1'
-            } ${tabClassName} ${isActive ? activeTabClassName : inactiveTabClassName
-            }`,
-          text: `${isActive
-            ? ' text-primary-0'
-            : ' '
-            } ${textClassName} ${isActive ? activeTextClassName : inactiveTextClassName
-            }`,
-          icon: `${isActive ? 'text-white' : 'text-gray-500'
-            } ${iconClassName} ${isActive ? activeIconClassName : inactiveIconClassName
-            }`,
+          tab: `rounded-full ${
+            isActive ? 'secondary-bg ' : 'bg-background-gray1'
+          } ${tabClassName} ${
+            isActive ? activeTabClassName : inactiveTabClassName
+          }`,
+          text: `${isActive ? ' text-primary-0' : ' '} ${textClassName} ${
+            isActive ? activeTextClassName : inactiveTextClassName
+          }`,
+          icon: `${
+            isActive ? 'text-white' : 'text-gray-500'
+          } ${iconClassName} ${
+            isActive ? activeIconClassName : inactiveIconClassName
+          }`,
         };
       case 'secondary':
         return {
-          tab: `rounded-full border ${isActive ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
-            } ${tabClassName} ${isActive ? activeTabClassName : inactiveTabClassName
-            }`,
-          text: `${isActive ? 'text-blue-600' : 'text-gray-600'
-            } ${textClassName} ${isActive ? activeTextClassName : inactiveTextClassName
-            }`,
-          icon: `${isActive ? 'text-blue-500' : 'text-gray-400'
-            } ${iconClassName} ${isActive ? activeIconClassName : inactiveIconClassName
-            }`,
+          tab: `rounded-full border ${
+            isActive ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+          } ${tabClassName} ${
+            isActive ? activeTabClassName : inactiveTabClassName
+          }`,
+          text: `${
+            isActive ? 'text-blue-600' : 'text-gray-600'
+          } ${textClassName} ${
+            isActive ? activeTextClassName : inactiveTextClassName
+          }`,
+          icon: `${
+            isActive ? 'text-blue-500' : 'text-gray-400'
+          } ${iconClassName} ${
+            isActive ? activeIconClassName : inactiveIconClassName
+          }`,
         };
       case 'underline':
         return {
-          tab: `border-b-2 ${isActive ? 'border-blue-500' : 'border-transparent'
-            } ${tabClassName} ${isActive ? activeTabClassName : inactiveTabClassName
-            }`,
-          text: `${isActive ? 'text-blue-600 font-semibold' : 'text-gray-500'
-            } ${textClassName} ${isActive ? activeTextClassName : inactiveTextClassName
-            }`,
-          icon: `${isActive ? 'text-blue-500' : 'text-gray-400'
-            } ${iconClassName} ${isActive ? activeIconClassName : inactiveIconClassName
-            }`,
+          tab: `border-b-2 ${
+            isActive ? 'border-blue-500' : 'border-transparent'
+          } ${tabClassName} ${
+            isActive ? activeTabClassName : inactiveTabClassName
+          }`,
+          text: `${
+            isActive ? 'text-blue-600 font-semibold' : 'text-gray-500'
+          } ${textClassName} ${
+            isActive ? activeTextClassName : inactiveTextClassName
+          }`,
+          icon: `${
+            isActive ? 'text-blue-500' : 'text-gray-400'
+          } ${iconClassName} ${
+            isActive ? activeIconClassName : inactiveIconClassName
+          }`,
         };
       case 'pill':
         return {
-          tab: `rounded-full ${isActive ? 'bg-blue-100' : 'bg-gray-100'
-            } ${tabClassName} ${isActive ? activeTabClassName : inactiveTabClassName
-            }`,
-          text: `${isActive ? 'text-blue-700 font-medium' : 'text-gray-600'
-            } ${textClassName} ${isActive ? activeTextClassName : inactiveTextClassName
-            }`,
-          icon: `${isActive ? 'text-blue-500' : 'text-gray-400'
-            } ${iconClassName} ${isActive ? activeIconClassName : inactiveIconClassName
-            }`,
+          tab: `rounded-full ${
+            isActive ? 'bg-blue-100' : 'bg-gray-100'
+          } ${tabClassName} ${
+            isActive ? activeTabClassName : inactiveTabClassName
+          }`,
+          text: `${
+            isActive ? 'text-blue-700 font-medium' : 'text-gray-600'
+          } ${textClassName} ${
+            isActive ? activeTextClassName : inactiveTextClassName
+          }`,
+          icon: `${
+            isActive ? 'text-blue-500' : 'text-gray-400'
+          } ${iconClassName} ${
+            isActive ? activeIconClassName : inactiveIconClassName
+          }`,
         };
       case 'unstyled':
         return {
-          tab: `${tabClassName} ${isActive ? activeTabClassName : inactiveTabClassName
-            }`,
-          text: `${textClassName} ${isActive ? activeTextClassName : inactiveTextClassName
-            }`,
-          icon: `${iconClassName} ${isActive ? activeIconClassName : inactiveIconClassName
-            }`,
+          tab: `${tabClassName} ${
+            isActive ? activeTabClassName : inactiveTabClassName
+          }`,
+          text: `${textClassName} ${
+            isActive ? activeTextClassName : inactiveTextClassName
+          }`,
+          icon: `${iconClassName} ${
+            isActive ? activeIconClassName : inactiveIconClassName
+          }`,
         };
       default:
         return {
-          tab: `${tabClassName} ${isActive ? activeTabClassName : inactiveTabClassName
-            }`,
-          text: `${textClassName} ${isActive ? activeTextClassName : inactiveTextClassName
-            }`,
-          icon: `${iconClassName} ${isActive ? activeIconClassName : inactiveIconClassName
-            }`,
+          tab: `${tabClassName} ${
+            isActive ? activeTabClassName : inactiveTabClassName
+          }`,
+          text: `${textClassName} ${
+            isActive ? activeTextClassName : inactiveTextClassName
+          }`,
+          icon: `${iconClassName} ${
+            isActive ? activeIconClassName : inactiveIconClassName
+          }`,
         };
     }
   };
@@ -193,7 +217,8 @@ const AppTab = ({
         },
         wrapperStyle,
       ]}
-      className={`flex-row ${className}`}>
+      className={`flex-row ${className}`}
+    >
       {tabs.map((tab, index) => {
         const isActive = activeTab === tab.value;
         const variantClasses = getVariantClasses(isActive);
@@ -215,7 +240,8 @@ const AppTab = ({
                 isActive ? activeTabStyle : inactiveTabStyle,
               ]}
               className={`justify-center ${variantClasses.tab} ${tabWrapperClassName}`}
-              activeOpacity={0.7}>
+              activeOpacity={0.7}
+            >
               <View className={iconPositionClass}>
                 {tab.icon && (
                   <View className={`${variantClasses.icon} ${spacingClass}`}>
@@ -229,8 +255,11 @@ const AppTab = ({
                     { fontFamily: mediumFontFamily },
                     textStyle,
                     isActive ? activeTextStyle : inactiveTextStyle,
-                    !isActive && variant === 'primary' ? { color: '#707070' } : undefined,
-                  ]}>
+                    !isActive && variant === 'primary'
+                      ? { color: '#707070' }
+                      : undefined,
+                  ]}
+                >
                   {tab.label}
                 </Text>
               </View>

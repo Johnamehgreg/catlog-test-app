@@ -1,14 +1,14 @@
-import { useDarkMode } from "@core/hooks/logic/use-dark-mode";
-import { s } from "@core/utils/scale";
-import React, { useEffect, useRef } from "react";
-import { Animated, StyleSheet, View } from "react-native";
+import { useDarkMode } from '@core/hooks/logic/use-dark-mode';
+import { s } from '@core/utils/scale';
+import React, { useEffect, useRef } from 'react';
+import { Animated, StyleSheet, View } from 'react-native';
 
 interface Props {
   count?: number;
 }
 
 export const DashboardGridSkeleton: React.FC<Props> = ({ count = 4 }) => {
-  const { isDark } = useDarkMode()
+  const { isDark } = useDarkMode();
   const opacity = useRef(new Animated.Value(0.3)).current;
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const DashboardGridSkeleton: React.FC<Props> = ({ count = 4 }) => {
           duration: 1000,
           useNativeDriver: true,
         }),
-      ])
+      ]),
     );
     animation.start();
     return () => animation.stop();

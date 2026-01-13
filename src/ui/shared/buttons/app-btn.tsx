@@ -44,9 +44,7 @@ export const AppBtn: React.FC<Props> = ({
   leftSection,
   rightSection,
 }) => {
-
   const getLoaderColor = useMemo(() => {
-
     if (loaderColor) {
       return loaderColor;
     }
@@ -62,8 +60,7 @@ export const AppBtn: React.FC<Props> = ({
       case 'outline':
         return {
           textClassName: 'text-primary-0 ',
-          btnContainerClass:
-            'bg-transparent border-[1px] border-primary-0  ',
+          btnContainerClass: 'bg-transparent border-[1px] border-primary-0  ',
         };
       default:
         return {
@@ -84,9 +81,11 @@ export const AppBtn: React.FC<Props> = ({
         onPress?.();
         onHaptic();
       }}
-      className={`${style.btnContainerClass} ${isDisabled && '!bg-[#D0D5DD]'
-        }  ${className} `}
-      style={[styles.buttonContainer, btnStyle]}>
+      className={`${style.btnContainerClass} ${
+        isDisabled && '!bg-[#D0D5DD]'
+      }  ${className} `}
+      style={[styles.buttonContainer, btnStyle]}
+    >
       {loading ? (
         <Spinner size="small" color={getLoaderColor} />
       ) : (
@@ -94,13 +93,20 @@ export const AppBtn: React.FC<Props> = ({
           style={{
             gap: s(8),
           }}
-          className="items-center">
+          className="items-center"
+        >
           {leftSection}
           <Text
             numberOfLines={1}
-            className={`${style.textClassName} ${isDisabled && 'text-[#707070]'
-              } ${textClassName}`}
-            style={[textStyles.textBase, textStyle, { fontFamily: regularFontFamily }]}>
+            className={`${style.textClassName} ${
+              isDisabled && 'text-[#707070]'
+            } ${textClassName}`}
+            style={[
+              textStyles.textBase,
+              textStyle,
+              { fontFamily: regularFontFamily },
+            ]}
+          >
             {title}
           </Text>
           {rightSection}

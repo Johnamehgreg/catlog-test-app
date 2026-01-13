@@ -34,7 +34,7 @@ const MESSAGES = {
 };
 
 // Password validation schema (reusable)
-const passwordSchema = yup.string().required(MESSAGES.password.required)
+const passwordSchema = yup.string().required(MESSAGES.password.required);
 // .min(8, MESSAGES.password.length(8, 64))
 // .max(64, MESSAGES.password.length(8, 64))
 // .matches(PASSWORD_PATTERNS.specialChar, MESSAGES.password.specialChar)
@@ -50,7 +50,7 @@ export const initialValues = {
     password: '',
   },
 
-   createExpense: {
+  createExpense: {
     description: '',
     amount: '',
     amount_paid: '',
@@ -59,7 +59,6 @@ export const initialValues = {
     currency: '',
     date: '',
   },
- 
 };
 
 // Validation schemas
@@ -68,15 +67,17 @@ export const validationSchemas = {
     loginType: yup.string(),
     email: yup.string().when('loginType', {
       is: (val: string) => val === 'Email',
-      then: (schema) => schema.email(MESSAGES.email.invalid).required(MESSAGES.email.required),
-      otherwise: (schema) => schema.notRequired(),
+      then: schema =>
+        schema.email(MESSAGES.email.invalid).required(MESSAGES.email.required),
+      otherwise: schema => schema.notRequired(),
     }),
     phone: yup.string().when('loginType', {
       is: (val: string) => val === 'Phone',
-      then: (schema) => schema
-        .min(10, MESSAGES.phone_number.minLength(10))
-        .required(MESSAGES.phone_number.required),
-      otherwise: (schema) => schema.notRequired(),
+      then: schema =>
+        schema
+          .min(10, MESSAGES.phone_number.minLength(10))
+          .required(MESSAGES.phone_number.required),
+      otherwise: schema => schema.notRequired(),
     }),
     password: passwordSchema,
   }),
@@ -89,6 +90,5 @@ export const validationSchemas = {
     recipient: yup.string().required(MESSAGES.phone_number.required),
     currency: yup.string().required(MESSAGES.phone_number.required),
     date: yup.string().required('Date is required'),
-  })
-
+  }),
 };

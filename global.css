@@ -4,7 +4,7 @@
 
 
 .app-input {
-  @apply border border-[#C2C2C24D];
+  @apply border border-[#C2C2C24D] text-typography-900 dark:text-typography-50 ;
 }
 
 .primary-text {
@@ -19,7 +19,11 @@
 
 
 .app-border {
-  @apply border-[#E5E5E5] border-[0.5px];
+  @apply border-[#E5E5E5] border-[0.5px] px-2;
+}
+
+.currency-card {
+  @apply border-[#E5E5E5] border-r-[0.5px];
 }
 
 .primary-bg {

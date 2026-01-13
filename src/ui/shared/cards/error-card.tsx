@@ -29,32 +29,28 @@ export const ErrorCard: React.FC<Props> = ({
       case 'error':
         return {
           messageClassName: ' text-[#F9B3B3]',
-          wrapperClassName:
-            ' bg-[#401A1A] border-[#401A1A]  ',
+          wrapperClassName: ' bg-[#401A1A] border-[#401A1A]  ',
           closeIconColor: '#F9B3B3',
           message: message || 'Something went wrong',
         };
       case 'success':
         return {
           messageClassName: 'dark:text-[#137C5A] text-[#A1F1C2]',
-          wrapperClassName:
-            ' bg-[#1A4032] border-[#1A4032]  ',
+          wrapperClassName: ' bg-[#1A4032] border-[#1A4032]  ',
           closeIconColor: '#01E17B',
           message: message,
         };
       case 'info':
         return {
           messageClassName: 'text-[#B3D9FF]',
-          wrapperClassName:
-            ' bg-[#1C2C40] border-[#1C2C40]  ',
+          wrapperClassName: ' bg-[#1C2C40] border-[#1C2C40]  ',
           closeIconColor: '#B3D9FF',
           message: message,
         };
       default:
         return {
           messageClassName: ' text-[#A1F1C2]',
-          wrapperClassName:
-            ' bg-[#1A4032] border-[#1A4032]  ',
+          wrapperClassName: ' bg-[#1A4032] border-[#1A4032]  ',
           closeIconColor: '#01E17B',
           message: message,
         };
@@ -75,11 +71,13 @@ export const ErrorCard: React.FC<Props> = ({
           paddingHorizontal: s(16),
           gap: s(20),
         }}
-        className={`w-full flex-row justify-between items-center gap-6 shadow-hard-5 bg-white dark:bg-neutral-900 ${content?.wrapperClassName}`}>
+        className={`w-full flex-row justify-between items-center gap-6 shadow-hard-5 bg-white dark:bg-neutral-900 ${content?.wrapperClassName}`}
+      >
         <HStack space="md" className="items-center flex-[0.93]">
           <ToastDescription
             className={`!font-nourd-medium capitalize text-base ${content.messageClassName}`}
-            style={[textStyles.textSm]}>
+            style={[textStyles.textSm]}
+          >
             {message}
           </ToastDescription>
         </HStack>

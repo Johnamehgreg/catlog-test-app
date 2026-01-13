@@ -4,13 +4,9 @@ import { navigationRef } from '@core/utils/helpers';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
 const Stack = createNativeStackNavigator();
 
-
 const RootStack = () => {
-
-
   return (
     <Stack.Navigator
       initialRouteName={routes.splash}
@@ -18,7 +14,8 @@ const RootStack = () => {
         headerShown: false,
         gestureEnabled: true,
         animation: 'slide_from_right', // This enables slide animation
-      }}>
+      }}
+    >
       {router.map(item => {
         return (
           <Stack.Screen
@@ -30,16 +27,14 @@ const RootStack = () => {
       })}
     </Stack.Navigator>
   );
-}
-
+};
 
 const MainUi = () => {
   return (
-    <NavigationContainer
-      ref={navigationRef}>
+    <NavigationContainer ref={navigationRef}>
       <RootStack />
     </NavigationContainer>
-  )
-}
+  );
+};
 
-export default MainUi
+export default MainUi;

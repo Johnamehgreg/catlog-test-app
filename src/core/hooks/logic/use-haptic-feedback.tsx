@@ -1,4 +1,4 @@
-import {trigger} from 'react-native-haptic-feedback';
+import { trigger } from 'react-native-haptic-feedback';
 
 const options = {
   enableVibrateFallback: true,

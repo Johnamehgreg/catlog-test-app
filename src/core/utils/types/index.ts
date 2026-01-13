@@ -5,8 +5,6 @@ export interface FormSignInValue {
   forced?: boolean;
 }
 
-
-
 export interface ToastModel {
   variant: ToastVariant;
   message: string;
@@ -14,20 +12,17 @@ export interface ToastModel {
 }
 
 export interface ExpenseValue {
-  description: string,
-  amount: number,
-  amount_paid: number,
-  recipient: string,
-  category: string,
-  currency: string,
-  date?: string,
+  description: string;
+  amount: number;
+  amount_paid: number;
+  recipient: string;
+  category: string;
+  currency: string;
+  date?: string;
   // currency: "NGN" | "USD" | "EUR" | "GBP" | "GHC" | "ZAR" | "KES" | "CAD",
 }
 
-
-
 export type StoreKey = 'darkMode' | 'token' | 'user' | 'refreshToken';
-
 
 export interface UserValue {
   id: string;
@@ -45,7 +40,6 @@ export interface TabItem {
   hide?: boolean;
 }
 
-
 export type ToastVariant = 'success' | 'error' | 'info';
 
 export interface ToastModel {
@@ -54,18 +48,17 @@ export interface ToastModel {
   isLoading?: boolean;
 }
 
-
 export interface ExpenseModel {
   auto_generated: boolean;
   currency: string;
   payments: any[];
   notes: any[];
-  status: "FULLY_PAID" | string;
+  status: 'FULLY_PAID' | string;
   expense_id: string;
   description: string;
   recipient: Recipient;
   category: string;
-  
+
   amount: number;
   amount_paid: number;
   store: string;
@@ -77,7 +70,7 @@ export interface ExpenseModel {
 
 export interface Recipient {
   id: string;
-  name: string; 
+  name: string;
   store: string;
   created_at: string;
   updated_at: string;
@@ -90,7 +83,7 @@ export interface Sale {
   related_adjustments: string[];
   related_expenses: string[];
   related_debts: any[];
-  payment_status: "FULLY_PAID" | string;
+  payment_status: 'FULLY_PAID' | string;
   is_paid: boolean;
   from_seller: boolean;
   channel: string;
@@ -239,7 +232,6 @@ export interface FinancialBreakdown {
   total_customer_fees: number;
   total_deductions: number;
 }
-
 
 export interface CategoryModel {
   id: string;

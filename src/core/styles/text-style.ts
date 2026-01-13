@@ -7,7 +7,7 @@ import { Platform, StyleSheet } from 'react-native';
 // iOS: Uses PostScript name (try filename pattern first, may need adjustment)
 const getFontFamily = (weight: string) => {
   const fontName = `FHOscarTest-${weight}`;
-  
+
   if (Platform.OS === 'android') {
     // Android: Use filename without extension
     return fontName;
@@ -43,15 +43,15 @@ export const interBlackFontFamily = getInterFontFamily('Black');
 
 export const textStyles = StyleSheet.create({
   // Tailwind-like text sizes (scaled with rfs)
-  textXs: {fontSize: rfs(12), flexShrink: 1}, // ~12px (Tailwind: text-xs)
-  textSm: {fontSize: rfs(14),  flexShrink: 1}, // ~14px (Tailwind: text-sm)
-  textBase: {fontSize: rfs(16), flexShrink: 1}, // ~16px (Tailwind: text-base)
-  textLg: {fontSize: rfs(18), flexShrink: 1}, // ~18px (Tailwind: text-lg)
-  textXl: {fontSize: rfs(20), flexShrink: 1}, // ~20px (Tailwind: text-xl)
-  text2Xl: {fontSize: rfs(24),  flexShrink: 1}, // ~24px (Tailwind: text-2xl)
-  text3Xl: {fontSize: rfs(28), flexShrink: 1}, // ~28px (Tailwind: text-3xl)
-  text4Xl: {fontSize: rfs(32), flexShrink: 1}, // ~32px (Tailwind: text-4xl)
-  text5Xl: {fontSize: rfs(36),  flexShrink: 1}, // ~36px (Tailwind: text-5xl)
+  textXs: { fontSize: rfs(12), flexShrink: 1 }, // ~12px (Tailwind: text-xs)
+  textSm: { fontSize: rfs(14), flexShrink: 1 }, // ~14px (Tailwind: text-sm)
+  textBase: { fontSize: rfs(16), flexShrink: 1 }, // ~16px (Tailwind: text-base)
+  textLg: { fontSize: rfs(18), flexShrink: 1 }, // ~18px (Tailwind: text-lg)
+  textXl: { fontSize: rfs(20), flexShrink: 1 }, // ~20px (Tailwind: text-xl)
+  text2Xl: { fontSize: rfs(24), flexShrink: 1 }, // ~24px (Tailwind: text-2xl)
+  text3Xl: { fontSize: rfs(28), flexShrink: 1 }, // ~28px (Tailwind: text-3xl)
+  text4Xl: { fontSize: rfs(32), flexShrink: 1 }, // ~32px (Tailwind: text-4xl)
+  text5Xl: { fontSize: rfs(36), flexShrink: 1 }, // ~36px (Tailwind: text-5xl)
 
   // Titles (aligned with Tailwind sizes)
   title: {
@@ -93,14 +93,14 @@ export const textStyles = StyleSheet.create({
   },
 
   // Font weights
-  regular: {fontFamily: regularFontFamily},
-  semiBold: {fontFamily: semiBoldFontFamily},
-  bold: {fontFamily: boldFontFamily},
+  regular: { fontFamily: regularFontFamily },
+  semiBold: { fontFamily: semiBoldFontFamily },
+  bold: { fontFamily: boldFontFamily },
 
   // Text alignment
-  textCenter: {textAlign: 'center'},
-  textLeft: {textAlign: 'left'},
-  textRight: {textAlign: 'right'},
+  textCenter: { textAlign: 'center' },
+  textLeft: { textAlign: 'left' },
+  textRight: { textAlign: 'right' },
 
   actionSheetTitle: {
     fontFamily: boldFontFamily,

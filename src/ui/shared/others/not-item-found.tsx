@@ -10,7 +10,7 @@ interface Props {
   message?: string;
 }
 
-export const NotItemFound: React.FC<Props> = ({message, style}) => {
+export const NotItemFound: React.FC<Props> = ({ message, style }) => {
   if (message)
     return (
       <View
@@ -21,11 +21,13 @@ export const NotItemFound: React.FC<Props> = ({message, style}) => {
             gap: s(5),
           },
         ]}
-        className="flex-row items-center justify-center ">
+        className="flex-row items-center justify-center "
+      >
         <IconNotFound />
         <Text
           className="text-black dark:text-[#A0A0A0]"
-          style={[{textAlign: 'center'}, textStyles.textXs]}>
+          style={[{ textAlign: 'center' }, textStyles.textXs]}
+        >
           {message}
         </Text>
       </View>

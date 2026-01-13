@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, {Path, G, Mask, Defs, SvgProps} from 'react-native-svg';
+import Svg, { Path, G, Mask, Defs, SvgProps } from 'react-native-svg';
 export const IconSearch = (props: SvgProps) => (
   <Svg width={20} height={20} viewBox="0 0 20 20" fill="none" {...props}>
     <Defs>
@@ -10,7 +10,8 @@ export const IconSearch = (props: SvgProps) => (
         x="1"
         y="1"
         width="17"
-        height="17">
+        height="17"
+      >
         <Path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -25,7 +26,8 @@ export const IconSearch = (props: SvgProps) => (
         x="14"
         y="14"
         width="5"
-        height="5">
+        height="5"
+      >
         <Path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -52,4 +54,3 @@ export const IconSearch = (props: SvgProps) => (
     </G>
   </Svg>
 );
-

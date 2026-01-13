@@ -2,21 +2,26 @@ import { Box } from '@/components/ui/box';
 import {
   FormControl,
   FormControlError,
-  FormControlErrorText,
-  FormControlLabel
+  FormControlErrorText
 } from '@/components/ui/form-control';
 import { EyeIcon, EyeOffIcon } from '@/components/ui/icon';
 import { Input, InputIcon, InputSlot } from '@/components/ui/input';
-// import { MoneyTextInput } from '@alexzunik/react-native-money-input';
+import { Text } from '@/components/ui/text';
+import { MoneyTextInput } from '@alexzunik/react-native-money-input';
 import { IconArrowDown } from '@assets/svgs/icon-arrow-down';
 import { useDarkMode } from '@core/hooks/logic/use-dark-mode';
 import { regularFontFamily, textStyles } from '@core/styles/text-style';
-import { colors } from '@core/utils/app-config';
 import { s } from '@core/utils/scale';
 import { Calendar } from 'lucide-react-native';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
-import { Animated, StyleProp, TextInput, TextStyle, View, ViewStyle } from 'react-native';
-import { MaskedTextInput } from 'react-native-mask-text';
+import {
+  Animated,
+  StyleProp,
+  TextInput,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 interface Props {
   label?: string;
@@ -68,15 +73,14 @@ interface Props {
   prefix?: string;
   isDate?: boolean;
   mask?: string;
+  currency?: string
 }
 
 const AppInput: React.FC<Props> = props => {
   const {
-    label,
     leftSection,
     isTextArea,
     rightSection,
-    isRequired,
     isSecure,
     placeholder,
     onBlur,
@@ -84,7 +88,6 @@ const AppInput: React.FC<Props> = props => {
     keyboardType,
     value,
     inputStyle,
-    style,
     isSelect,
     errorMessage,
     maxLength,
@@ -98,24 +101,22 @@ const AppInput: React.FC<Props> = props => {
     labelClassName,
     onPress,
     isReadOnly,
-    labelStyle,
     isAmount,
-    prefix,
-    subLabelSection,
     bottomSection,
-    maximumFractionalDigits,
     isDate,
     mask,
+    currency
   } = props;
 
   const [show, setShow] = React.useState(false);
   const [isFocus, setIsFocus] = useState(false);
 
-
-  const { isDark } = useDarkMode()
+  const { isDark } = useDarkMode();
   // Floating label animation - initialize with current value state
   const shouldShowLabel = isFocus || !!value;
-  const animatedValue = useRef(new Animated.Value(shouldShowLabel ? 1 : 0)).current;
+  const animatedValue = useRef(
+    new Animated.Value(shouldShowLabel ? 1 : 0),
+  ).current;
 
   useEffect(() => {
     // Animate smoothly when focus or value changes
@@ -141,59 +142,23 @@ const AppInput: React.FC<Props> = props => {
     outputRange: [0, 1],
   });
 
-
-
   const handleClick = () => {
     return onPress?.();
   };
-
 
   return (
     <Box
       style={{
         minHeight: s(50),
-      }}>
+      }}
+    >
       <FormControl
         onTouchStart={() => (!isDisable ? handleClick() : null)}
         className="h-auto "
         // isRequired={isRequired}
-        isInvalid={errorMessage ? true : false}>
-        {label && (
-          <FormControlLabel
-            style={{
-              gap: s(5),
-            }}
-            className="justify-between">
-            {/* <HStack>
-              <FormControlLabelText
-                className={` text-brand-primary-80 !font-nourd-medium ${labelClassName}`}
-                style={[
-                  {
-                    fontSize: rfs(14.544),
-                  },
-                  labelStyle,
-                ]}>
-                {' '}
-                {label}
-              </FormControlLabelText>
-              {isRequired && (
-                <FormControlLabelText
-                  className={`  text-brand-primary-80 !font-nourd-medium ${labelClassName}`}
-                  style={[
-                    {
-                      fontSize: rfs(14.544),
-                    },
-                    labelStyle,
-                  ]}>
-                  {' '}
-                  *
-                </FormControlLabelText>
-              )}
-            </HStack> */}
+        isInvalid={errorMessage ? true : false}
+      >
 
-            {subLabelSection && subLabelSection}
-          </FormControlLabel>
-        )}
 
         <View style={{ position: 'relative', marginTop: s(8) }}>
           {/* Floating Label */}
@@ -202,18 +167,23 @@ const AppInput: React.FC<Props> = props => {
               style={{
                 position: 'absolute',
                 left: s(12),
-                top: isTextArea ? s(12) : s(24),
+                top: isTextArea ? s(26) : s(24),
                 transform: [
                   { translateY: labelTranslateY },
                   { scale: labelScale },
-                  
                 ],
                 fontFamily: regularFontFamily,
                 opacity: shouldShowLabel ? labelOpacity : 0,
                 fontSize: shouldShowLabel ? s(12) : s(14),
-                color: isFocus ? (isDark ? '#FFFFFF' : 'rgb(51, 32, 137)') : (isDark ? '#9CA3AF' : '#707070'),
-                backgroundColor: isDark ? '#000000' : '#FFFFFF',
+                color: isFocus
+                  ? isDark
+                    ? '#FFFFFF'
+                    : 'rgb(51, 32, 137)'
+                  : isDark
+                    ? '#9CA3AF'
+                    : '#707070',
                 paddingHorizontal: s(4),
+                backgroundColor: isDark ? '#000000' : '#FFFFFF',
                 zIndex: 1,
               }}
               pointerEvents="none"
@@ -233,76 +203,60 @@ const AppInput: React.FC<Props> = props => {
                 paddingHorizontal: s(12),
                 gap: s(10),
                 backgroundColor: isDark ? '#000000' : '#FFFFFF',
-                borderColor: isFocus ? (isDark ? '#FFFFFF' : 'rgb(51, 32, 137)') : (isDark ? '#374151' : '#E5E7EB'),
+                borderColor: isFocus
+                  ? isDark
+                    ? '#FFFFFF'
+                    : 'rgb(51, 32, 137)'
+                  : isDark
+                    ? '#374151'
+                    : '#E5E7EB',
               },
               inputStyle,
             ]}
             className={`app-input ${inputClassName} 
             ${isFocus ? '!border-primary-0 dark:!border-primary-0' : 'border-outline-300 dark:border-outline-700'}
-            `}>
+            `}
+          >
             {leftSection && <InputSlot>{leftSection}</InputSlot>}
-
-            {mask && (
-              <MaskedTextInput
-                className={`border-none outline-none    flex-1 !text-brand-black-100 dark:!text-typography-50 !line-clamp-1 ${innerInputClassName}`}
-                placeholder={shouldShowLabel ? '' : placeholder}
+            {
+              currency && (
+                <InputSlot>
+                  <Box style={{
+                    minHeight: s(50),
+                  }} className='currency-card'>
+                    <Text className='text-[#656565] dark:text-[#dcdcdc]' style={textStyles.textSm}>
+                      {currency}
+                    </Text>
+                  </Box>
+                </InputSlot>
+              )
+            }
+            {isAmount && (
+              <MoneyTextInput
+                keyboardType={keyboardType || 'default'}
+                returnKeyType="done"
+                readOnly={isReadOnly || isDate}
+                selectionColor="white"
+                onBlur={onBlur}
                 style={[
                   textStyles.textSm,
                   innerInputStyle,
                   {
-                    color: colors.brand['black-100'],
-                    width: '100%',
                     minHeight: isTextArea ? s(144) : s(50),
                     paddingVertical: isTextArea ? s(12) : 0,
                   },
                 ]}
-                value={value}
-                readOnly={isReadOnly || isDate}
-                mask={mask}
-                returnKeyType="done"
-                onBlur={(e) => {
-                  setIsFocus(false);
-                  onBlur?.(e);
-                }}
-                onFocus={() => {
-                  setIsFocus(true);
-                  onFocus?.();
-                }}
+                className={`border-none outline-none default-text   flex-1 ${isTextArea ? '' : '!line-clamp-1'} ${innerInputClassName}`}
                 onChangeText={(_, extracted) => {
                   onChangeText?.(extracted as string);
                 }}
+                placeholder="0.00"
+                groupingSeparator={','}
+                fractionSeparator="."
               />
             )}
 
-            {/* {!mask && isAmount && (
-            <MoneyTextInput
-              keyboardType={keyboardType || 'default'}
-              maximumFractionalDigits={maximumFractionalDigits}
-              returnKeyType="done"
-              readOnly={isReadOnly || isDate}
-              selectionColor="white"
-              onBlur={onBlur}
-              style={[
-                textStyles.textSm,
-                innerInputStyle,
-                {
-                  minHeight: isTextArea ? s(144) : s(50),
-                  paddingVertical: isTextArea ? s(12) : 0,
-                },
-              ]}
-              className={`border-none outline-none    flex-1 text-brand-black-100 !line-clamp-1 ${innerInputClassName}`}
-              value={value}
-              onChangeText={(_, extracted) => {
-                onChangeText?.(extracted as string);
-              }}
-              prefix={prefix}
-              placeholder="0.00"
-              groupingSeparator={','}
-              fractionSeparator="."
-            />
-          )} */}
-
-            {!mask && !isAmount && (
+            {!isAmount && (
               <TextInput
                 returnKeyType="done"
                 ref={ref}
@@ -310,7 +264,7 @@ const AppInput: React.FC<Props> = props => {
                 placeholder={shouldShowLabel ? '' : placeholder}
                 placeholderTextColor="#9CA3AF"
                 value={value}
-                onBlur={(e) => {
+                onBlur={e => {
                   setIsFocus(false);
                   onBlur?.(e);
                 }}
@@ -336,7 +290,7 @@ const AppInput: React.FC<Props> = props => {
                     textAlignVertical: isTextArea ? 'top' : 'center',
                   },
                 ]}
-                className={`border-none outline-none    flex-1 text-typography-900 dark:text-typography-50 ${isTextArea ? '' : '!line-clamp-1'} ${innerInputClassName}`}
+                className={`border-none outline-none  default-text  flex-1  ${isTextArea ? '' : '!line-clamp-1'} ${innerInputClassName}`}
               />
             )}
 
@@ -344,23 +298,27 @@ const AppInput: React.FC<Props> = props => {
 
             {isSecure && (
               <InputSlot className="pr-3" onPress={() => setShow(!show)}>
-                <InputIcon color="rgb(51, 32, 137)" as={show ? EyeIcon : EyeOffIcon} />
-              </InputSlot>
-            )}
-            {isDate && (
-              <InputSlot style={{
-
-              }} onPress={() => setShow(!show)} className='rounded-full p-2 bg-background-gray1'>
-                <Calendar
-                  size={s(18)}
-                  color={isDark ? '#FFFFFF' : '#747478'}
+                <InputIcon
+                  color="rgb(51, 32, 137)"
+                  as={show ? EyeIcon : EyeOffIcon}
                 />
               </InputSlot>
             )}
+            {isDate && (
+              <InputSlot
+                style={{}}
+                onPress={() => setShow(!show)}
+                className="rounded-full p-2 bg-background-gray1"
+              >
+                <Calendar size={s(18)} color={isDark ? '#FFFFFF' : '#747478'} />
+              </InputSlot>
+            )}
             {isSelect && (
-              <InputSlot style={{
-
-              }} onPress={() => setShow(!show)} className='rounded-full bg-background-gray1'>
+              <InputSlot
+                style={{}}
+                onPress={() => setShow(!show)}
+                className="rounded-full bg-background-gray1"
+              >
                 <IconArrowDown
                   width={s(28)}
                   height={s(28)}
@@ -377,7 +335,8 @@ const AppInput: React.FC<Props> = props => {
           <FormControlError className="gap-2 my-3">
             <FormControlErrorText
               style={[textStyles.textSm]}
-              className="flex-1 text-error-700  ">
+              className="flex-1 text-error-700  "
+            >
               {errorMessage}
             </FormControlErrorText>
           </FormControlError>
@@ -385,8 +344,6 @@ const AppInput: React.FC<Props> = props => {
           <></>
         )}
       </FormControl>
-
-
     </Box>
   );
 };

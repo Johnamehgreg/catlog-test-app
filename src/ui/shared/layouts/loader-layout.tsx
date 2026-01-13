@@ -23,9 +23,9 @@ import { NotItemFound } from '../others/not-item-found';
 interface Props {
   children?: React.ReactNode;
   queryData:
-  | UseQueryResult<AxiosResponse<any, any>, Error>
-  | UseInfiniteQueryResult<InfiniteData<any, unknown>, Error>
-  | any;
+    | UseQueryResult<AxiosResponse<any, any>, Error>
+    | UseInfiniteQueryResult<InfiniteData<any, unknown>, Error>
+    | any;
   loaderComponent?: React.ReactNode;
   isRefreshing?: boolean;
   onRefresh?: () => void;
@@ -56,11 +56,10 @@ export const LoaderLayout: React.FC<Props> = ({
   handleLoadMore,
   isFlatList,
   renderFooterList,
-  ListHeaderComponent
+  ListHeaderComponent,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [pullDistance] = useState(new Animated.Value(0));
-
 
   useEffect(() => {
     if (queryData?.isSuccess && queryData?.isFetched) {
@@ -93,12 +92,7 @@ export const LoaderLayout: React.FC<Props> = ({
     if (!isEmptyList)
       return (
         <>
-          <ActivityIndicator
-            size={30}
-            color={
-              '#000'
-            }
-          />
+          <ActivityIndicator size={30} color={'#000'} />
         </>
       );
   }, [queryData?.isFetchingNextPage, isEmptyList]);
@@ -134,14 +128,13 @@ export const LoaderLayout: React.FC<Props> = ({
           {isFlatList ? (
             <View className="flex-1">
               <FlatList
-
                 data={list}
                 renderItem={renderListItem}
                 keyExtractor={keyExtractor}
                 onEndReached={handleLoadMore}
                 onEndReachedThreshold={0.5}
                 ListHeaderComponent={() => {
-                  return ListHeaderComponent
+                  return ListHeaderComponent;
                 }}
                 ListFooterComponent={() => {
                   return (
@@ -159,9 +152,7 @@ export const LoaderLayout: React.FC<Props> = ({
                       queryData?.refetch?.();
                       onRefresh?.();
                     }}
-                    tintColor={
-                      '#00'
-                    }
+                    tintColor={'#00'}
                     progressBackgroundColor="#ffffff"
                   />
                 }
@@ -182,9 +173,7 @@ export const LoaderLayout: React.FC<Props> = ({
                       queryData?.refetch?.();
                       onRefresh?.();
                     }}
-                    tintColor={
-                      '#fff'
-                    }
+                    tintColor={'#fff'}
                     progressBackgroundColor="#ffffff"
                   />
                 ) : undefined
@@ -193,7 +182,8 @@ export const LoaderLayout: React.FC<Props> = ({
               scrollEventThrottle={16}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled">
+              keyboardShouldPersistTaps="handled"
+            >
               {renderEmptyComponent()}
               {children}
             </ScrollView>
@@ -219,29 +209,33 @@ export const RefreshControlComponent = ({
       onRefresh={() => {
         onRefresh?.();
       }}
-      tintColor={
-        '#000'}
+      tintColor={'#000'}
       progressBackgroundColor="#ffffff"
     />
   );
 };
 
-export const ErrorLoaderComponent = ({ onRefresh }: { onRefresh: () => void }) => {
+export const ErrorLoaderComponent = ({
+  onRefresh,
+}: {
+  onRefresh: () => void;
+}) => {
   return (
     <View
       className="flex-1 "
       style={{
         height: s(100),
-      }}>
+      }}
+    >
       <Center className="flex items-center justify-center h-full gap-3 ">
-
         <Text
           style={[
             textStyles.textBase,
             {
               marginBottom: s(10),
             },
-          ]}>
+          ]}
+        >
           Something went wrong try again
         </Text>
         <AppBtn

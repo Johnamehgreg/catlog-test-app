@@ -7,17 +7,19 @@ import {
   useGetExpensesCategories,
   useGetRecipients,
 } from '@core/hooks/query/use-get-expenses';
-import { regularFontFamily, textStyles } from '@core/styles/text-style';
+import { interRegularFontFamily, textStyles } from '@core/styles/text-style';
 import { resColor } from '@core/utils/helpers';
 import { s } from '@core/utils/scale';
 import { CategoryModel, Recipient } from '@core/utils/types';
+import { initialValues, validationSchemas } from '@core/validators';
 import { AppBtn } from '@ui/shared/buttons/app-btn';
 import { AppCheckbox } from '@ui/shared/buttons/app-checkbox';
 import { AvatarCard } from '@ui/shared/cards/avatar-card';
 import AppInput from '@ui/shared/inputs/app-input';
 import { ActionSheetProvider } from '@ui/shared/others/action-sheet-provider';
-import React, { useEffect, useState } from 'react';
-import { Pressable, ScrollView, Text } from 'react-native';
+import { useFormik } from 'formik';
+import React, { useMemo, useState } from 'react';
+import { ScrollView, Text, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
 interface Props {
@@ -31,63 +33,48 @@ export const RecordExpenseSheet: React.FC<Props> = ({
   onClose,
   setOpen,
 }) => {
-  const [showCategory, setShowCategory] = useState(false);
-  const [showRecipient, setShowRecipient] = useState(false);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedCategory, setSelectedCategory] =
-    useState<CategoryModel | null>(null);
-  const [selectedRecipient, setSelectedRecipient] =
-    useState<Recipient | null>(null);
-  const [tempSelectedRecipient, setTempSelectedRecipient] =
-    useState<Recipient | null>(null);
-  const [tempSelectedCategory, setTempSelectedCategory] =
-    useState<CategoryModel | null>(null);
-
-  const handleReset = () => {
-    setSelectedCategory(null);
-    setSelectedRecipient(null);
-  };
-
-  const { isPending, formik } = useExpenses({
-    onClose,
-    onReset: handleReset,
-  });
+  const { isPending, mutate } = useExpenses({ onClose });
+  const { isDark } = useDarkMode();
 
   const { queryData, categories } = useGetExpensesCategories();
   const { queryData: queryRecipient, recipients } = useGetRecipients();
-  const { isDark } = useDarkMode();
 
-  useEffect(() => {
-    if (formik.values.recipient && !selectedRecipient && recipients) {
-      const recipient = recipients.find(
-        r => r.id === formik.values.recipient,
-      );
-      if (recipient) {
-        setSelectedRecipient(recipient);
-      }
-    }
-    if (formik.values.category && !selectedCategory && categories) {
-      const category = categories.find(c => c.id === formik.values.category || c.key === formik.values.category);
-      if (category) {
-        setSelectedCategory(category);
-      }
-    }
-    if (!formik.values.recipient && selectedRecipient) {
-      setSelectedRecipient(null);
-    }
-    if (!formik.values.category && selectedCategory) {
-      setSelectedCategory(null);
-    }
-  }, [
-    formik.values.recipient,
-    formik.values.category,
-    recipients,
-    categories,
-    selectedRecipient,
-    selectedCategory,
-  ]);
+  const formik = useFormik({
+    initialValues: {
+      ...initialValues.createExpense,
+      currency: 'NGN', // Set default currency
+    },
+    validationSchema: validationSchemas.createExpense,
+    enableReinitialize: true,
+    onSubmit: values => {
+      const payload = {
+        ...values,
+        amount: Number(values.amount),
+        amount_paid: Number(values.amount_paid),
+        currency: values.currency || 'NGN',
+      };
+      mutate(payload)
+    },
+  });
 
-  // Format date for display
+
+  const [showCategory, setShowCategory] = useState(false);
+  const [showRecipient, setShowRecipient] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const catValue = useMemo(() => {
+    return categories?.find(
+      category => category.key.toString() === formik.values.category,
+    )?.description;
+  }, [formik.values.category, categories]);
+
+  const recipientValue = useMemo(() => {
+    return recipients?.find(
+      recipient => recipient.id.toString() === formik.values.recipient,
+    )?.name;
+  }, [formik.values.recipient, recipients]);
+
+
   const formatDate = (dateString: string) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -114,55 +101,13 @@ export const RecordExpenseSheet: React.FC<Props> = ({
     setShowDatePicker(false);
   };
 
-  const handleRecipientConfirm = () => {
-    if (tempSelectedRecipient) {
-      setSelectedRecipient(tempSelectedRecipient);
-      formik.setFieldValue('recipient', tempSelectedRecipient.id);
-      setShowRecipient(false);
-   
-      setTimeout(() => {
-        setOpen(true);
-      }, 100);
-    }
-  };
 
-  const handleCategoryConfirm = () => {
-    if (tempSelectedCategory) {
-      setSelectedCategory(tempSelectedCategory);
-      formik.setFieldValue('category', tempSelectedCategory.id);
-      setShowCategory(false);
-      
-      setTimeout(() => {
-        setOpen(true);
-      }, 100);
-    }
-  };
-
-  useEffect(() => {
-    if (showRecipient) {
-      setTempSelectedRecipient(selectedRecipient);
-    } else {
-      setTempSelectedRecipient(null);
-    }
-  }, [showRecipient, selectedRecipient]);
-
-  useEffect(() => {
-    if (showCategory) {
-      setTempSelectedCategory(selectedCategory);
-    } else {
-      setTempSelectedCategory(null);
-    }
-  }, [showCategory, selectedCategory]);
 
   return (
     <>
-      {/* Main Form Action Sheet */}
       <ActionSheetProvider
         title="Record an Expense Manually"
-        onClose={() => {
-          setOpen(false);
-          onClose();
-        }}
+        onClose={onClose}
         open={open}
         hideSearch
       >
@@ -170,7 +115,6 @@ export const RecordExpenseSheet: React.FC<Props> = ({
           <VStack
             style={{
               gap: s(10),
-              marginBottom: s(10),
             }}
           >
             <AppInput
@@ -181,6 +125,7 @@ export const RecordExpenseSheet: React.FC<Props> = ({
               placeholder="Amount"
               touched={formik.touched.amount}
               keyboardType="numeric"
+              currency="NGN"
             />
             <AppInput
               onChangeText={formik.handleChange('amount_paid')}
@@ -190,45 +135,43 @@ export const RecordExpenseSheet: React.FC<Props> = ({
               placeholder="Amount Paid"
               touched={formik.touched.amount_paid}
               keyboardType="numeric"
+              currency="NGN"
             />
             <AppInput
               isSelect
-              onPress={() => {
-                setOpen(false);
-                setShowRecipient(true);
-              }}
+              onPress={() => setShowRecipient(true)}
               errorMessage={formik.errors.recipient}
-              value={selectedRecipient?.name}
+              value={recipientValue || ''}
               placeholder="Recipient"
               touched={formik.touched.recipient}
             />
             <AppInput
               isSelect
               onPress={() => {
-                setOpen(false);
                 setShowCategory(true);
+                onClose();
               }}
               errorMessage={formik.errors.category}
-              value={selectedCategory?.description}
+              value={catValue || ''}
               placeholder="Category"
               touched={formik.touched.category}
             />
+
             <AppInput
               isTextArea
               onChangeText={formik.handleChange('description')}
               onBlur={formik.handleBlur('description')}
               errorMessage={formik.errors.description}
               value={formik.values.description}
-              placeholder="Description"
+              placeholder="description"
               touched={formik.touched.description}
             />
+
             <AppInput
               isDate
               onPress={() => setShowDatePicker(true)}
               errorMessage={formik.errors.date}
-              value={
-                formik.values.date ? formatDate(formik.values.date) : ''
-              }
+              value={formik.values.date ? formatDate(formik.values.date) : ''}
               placeholder="Date"
               touched={formik.touched.date}
             />
@@ -241,88 +184,68 @@ export const RecordExpenseSheet: React.FC<Props> = ({
           loading={isPending}
         />
       </ActionSheetProvider>
-
       <ActionSheetProvider
         queryData={queryRecipient}
         list={recipients}
         searchPlaceholder="Search for recipient"
         title="Select Recipient"
         onClose={() => {
-          setTempSelectedRecipient(selectedRecipient);
           setShowRecipient(false);
-          setTimeout(() => {
-            setOpen(true);
-          }, 100);
+          setOpen(true);
+
         }}
         open={showRecipient}
-        extraData={tempSelectedRecipient?.id || 'none'}
         listWrapperStyle={{
           paddingVertical: s(10),
         }}
-        listFooterComponent={
-          <AppBtn
-            title="Select Recipient"
-            onPress={handleRecipientConfirm}
-            isDisabled={!tempSelectedRecipient}
-            btnStyle={{
-              marginTop: s(20),
-            }}
-          />
-        }
         listItem={item => {
-          const isActive = tempSelectedRecipient?.id === item.id;
           return (
             <ResItem
-              onPress={() => {
-                setTempSelectedRecipient(item);
+              onPress={(resData: Recipient) => {
+                setShowRecipient(false);
+                setOpen(true);
+                formik?.setFieldValue('recipient', resData?.id);
               }}
-              active={isActive}
+              active={
+
+                formik.values.recipient === item.id
+              }
               recipient={item}
             />
           );
         }}
-      />
 
+      />
       <ActionSheetProvider
         queryData={queryData}
         list={categories}
         title="Select Category"
         searchPlaceholder="Search for Category"
         onClose={() => {
-          setTempSelectedCategory(selectedCategory);
           setShowCategory(false);
-          setTimeout(() => {
-            setOpen(true);
-          }, 100);
+          setOpen(true);
         }}
         open={showCategory}
-        extraData={tempSelectedCategory?.id || 'none'}
         listWrapperStyle={{
           paddingVertical: s(10),
           gap: s(10),
         }}
-        listFooterComponent={
-          <AppBtn
-            title="Select Category"
-            onPress={handleCategoryConfirm}
-            isDisabled={!tempSelectedCategory}
-            btnStyle={{
-              marginTop: s(20),
-            }}
-          />
-        }
         listItem={(item: CategoryModel) => {
-          const isActive = tempSelectedCategory?.id === item.id;
           return (
             <CheckItemCard
-              active={isActive}
-              onPress={() => {
-                setTempSelectedCategory(item);
+              active={
+                formik.values.category === item.key
+              }
+              onPress={(catData: CategoryModel) => {
+                setShowCategory(false);
+                setOpen(true);
+                formik?.setFieldValue('category', catData?.key);
               }}
               category={item}
             />
           );
         }}
+
       />
 
       <DatePicker
@@ -344,83 +267,87 @@ const ResItem = ({
   active,
 }: {
   recipient: Recipient;
-  onPress: () => void;
+  onPress: (item: Recipient) => void;
   active: boolean;
 }) => {
   return (
-    <Pressable onPress={onPress}>
-      <HStack
-        style={{ gap: s(10) }}
-        className="items-center justify-between"
-      >
-        <HStack className="items-center gap-2">
-          <AvatarCard
-            style={{
-              backgroundColor: resColor,
-            }}
-            size={"smd"}
-            name={recipient?.name}
-          />
-          <Text
-            className="default-text capitalize"
-            style={[
-              textStyles.textSm,
-              {
-                fontFamily: regularFontFamily,
-              },
-            ]}
-          >
-            {recipient?.name}
-          </Text>
+    <TouchableOpacity onPress={() => onPress(recipient)}>
+      <>
+        <HStack style={{ gap: s(10) }} className="items-center justify-between ">
+          <HStack className="items-center gap-2 flex-1 ">
+            <AvatarCard
+              style={{
+                backgroundColor: resColor,
+              }}
+              name={recipient?.name}
+              size="smd"
+            />
+
+            <Text
+              numberOfLines={2}
+              className="default-text capitalize font-medium"
+              style={[
+                textStyles.textSm,
+                {
+                  fontFamily: interRegularFontFamily,
+                },
+              ]}
+            >
+              {recipient?.name}
+            </Text>
+          </HStack>
+
+          <AppCheckbox checked={active} />
         </HStack>
-        <AppCheckbox checked={active} />
-      </HStack>
-      <Divider
-        className="!bg-[#E5E5E5]"
-        style={{
-          marginVertical: s(15),
-        }}
-      />
-    </Pressable>
+
+        <Divider
+          className="!bg-[#E5E5E5]"
+          style={{
+            marginVertical: s(15),
+          }}
+        />
+      </>
+    </TouchableOpacity>
   );
 };
-
 const CheckItemCard = ({
   category,
   onPress,
   active,
 }: {
   category: CategoryModel;
-  onPress: () => void;
+  onPress: (item: CategoryModel) => void;
   active: boolean;
 }) => {
   return (
-    <Pressable onPress={onPress}>
-      <HStack
-        style={{ gap: s(10) }}
-        className="items-center justify-between"
-      >
-        <HStack className="items-center gap-2">
-          <Text
-            className="default-text"
-            style={[
-              textStyles.textSm,
-              {
-                fontFamily: regularFontFamily,
-              },
-            ]}
-          >
-            {category?.description}
-          </Text>
+    <TouchableOpacity onPress={() => onPress(category)}>
+      <>
+        <HStack style={{ gap: s(10) }} className="items-center justify-between ">
+          <HStack className="items-center gap-2 flex-1">
+            <Text
+              numberOfLines={1}
+              className="default-text font-medium"
+              style={[
+                textStyles.textSm,
+                {
+                  fontFamily: interRegularFontFamily,
+                },
+              ]}
+            >
+              {category?.description}
+            </Text>
+          </HStack>
+
+          <AppCheckbox checked={active} />
         </HStack>
-        <AppCheckbox checked={active} />
-      </HStack>
-      <Divider
-        className="!bg-[#E5E5E5]"
-        style={{
-          marginVertical: s(15),
-        }}
-      />
-    </Pressable>
+
+        <Divider
+          className="!bg-[#E5E5E5]"
+          style={{
+            marginVertical: s(15),
+          }}
+        />
+      </>
+    </TouchableOpacity>
   );
 };

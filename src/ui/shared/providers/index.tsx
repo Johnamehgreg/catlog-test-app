@@ -7,7 +7,6 @@ import { PropsWithChildren } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function TanstackQueryProvider({ children }: { children: React.ReactNode }) {
-
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
@@ -17,9 +16,7 @@ const Providers = ({ children }: PropsWithChildren) => {
   return (
     <TanstackQueryProvider>
       <SafeAreaProvider>
-        <GluestackUIProvider>
-          {children}
-        </GluestackUIProvider>
+        <GluestackUIProvider>{children}</GluestackUIProvider>
       </SafeAreaProvider>
     </TanstackQueryProvider>
   );

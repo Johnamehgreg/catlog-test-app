@@ -1,66 +1,91 @@
-import { useDarkMode } from "@core/hooks/logic/use-dark-mode";
-import { interBlackFontFamily, regularFontFamily, textStyles } from "@core/styles/text-style";
-import { formatNumber } from "@core/utils/helpers";
-import { s } from "@core/utils/scale";
-import { Recipient } from "@core/utils/types";
-import React, { useMemo } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { useDarkMode } from '@core/hooks/logic/use-dark-mode';
+import {
+  interBlackFontFamily,
+  regularFontFamily,
+  textStyles,
+} from '@core/styles/text-style';
+import { formatNumber } from '@core/utils/helpers';
+import { s } from '@core/utils/scale';
+import { Recipient } from '@core/utils/types';
+import React, { useMemo } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 interface Props {
-  analytic: any
+  analytic: any;
 }
 
 export const DashbordGrid: React.FC<Props> = ({ analytic }) => {
-
-  const { isDark } = useDarkMode()
-
+  const { isDark } = useDarkMode();
 
   const lastestRes = useMemo(() => {
-    return analytic?.top_10_recipients?.[0]
-  }, [analytic]) as Recipient | undefined
-  
-   const currency = useMemo(() => {
-    return analytic?.available_currencies?.[0] || 'NGN'
-  },[analytic]) as string | undefined
+    return analytic?.top_10_recipients?.[0];
+  }, [analytic]) as Recipient | undefined;
 
+  const currency = useMemo(() => {
+    return analytic?.available_currencies?.[0] || 'NGN';
+  }, [analytic]) as string | undefined;
 
   const dashboardList = useMemo(() => {
     return [
       {
         name: 'Total Expenses',
-        value: `${currency} ${formatNumber(analytic?.total_expenses?.value ||0)}`,
-        icon: <Image source={require('@assets/pngs/total_expenses.png')} style={{ width: s(48), height: s(48) }} />,
+        value: `${currency} ${formatNumber(analytic?.total_expenses?.value || 0)}`,
+        icon: (
+          <Image
+            source={require('@assets/pngs/total_expenses.png')}
+            style={{ width: s(48), height: s(48) }}
+          />
+        ),
       },
       {
         name: 'Average Value',
-        value:`${currency} ${formatNumber(analytic?.average_expense_value?.value ||0)}`,
-        icon: <Image source={require('@assets/pngs/average_value.png')} style={{ width: s(48), height: s(48) }} />,
+        value: `${currency} ${formatNumber(analytic?.average_expense_value?.value || 0)}`,
+        icon: (
+          <Image
+            source={require('@assets/pngs/average_value.png')}
+            style={{ width: s(48), height: s(48) }}
+          />
+        ),
       },
       {
         name: 'Pending Payments',
-        value:`${currency} ${formatNumber(analytic?.pending_payments?.value ||0)}`,
-        icon: <Image source={require('@assets/pngs/pending_payments.png')} style={{ width: s(48), height: s(48) }} />,
+        value: `${currency} ${formatNumber(analytic?.pending_payments?.value || 0)}`,
+        icon: (
+          <Image
+            source={require('@assets/pngs/pending_payments.png')}
+            style={{ width: s(48), height: s(48) }}
+          />
+        ),
       },
       {
         name: 'Largest Recipient',
         value: `${lastestRes?.name || 'N/A'}`,
-        icon: <Image source={require('@assets/pngs/largest_recipient.png')} style={{ width: s(48), height: s(48) }} />,
+        icon: (
+          <Image
+            source={require('@assets/pngs/largest_recipient.png')}
+            style={{ width: s(48), height: s(48) }}
+          />
+        ),
       },
     ];
   }, [analytic]);
 
-
-
   return (
-    <View style={styles.grid} className="flex-row flex-wrap" >
+    <View style={styles.grid} className="flex-row flex-wrap">
       {dashboardList.map((item, index) => {
-        return <ItemCard key={index} item={item} isDark={isDark} index={index} />;
+        return (
+          <ItemCard key={index} item={item} isDark={isDark} index={index} />
+        );
       })}
     </View>
   );
 };
 
-const ItemCard: React.FC<{ item: any; isDark: boolean; index: number }> = ({ item, isDark, index }) => {
+const ItemCard: React.FC<{ item: any; isDark: boolean; index: number }> = ({
+  item,
+  isDark,
+  index,
+}) => {
   // Determine which corner to round based on position in 2x2 grid
   // 0: top-left, 1: top-right, 2: bottom-left, 3: bottom-right
   const getBorderRadius = () => {
@@ -96,7 +121,7 @@ const ItemCard: React.FC<{ item: any; isDark: boolean; index: number }> = ({ ite
           styles.iconContainer,
           {
             backgroundColor: item.iconBg,
-          }
+          },
         ]}
       >
         {item.icon}
@@ -110,7 +135,7 @@ const ItemCard: React.FC<{ item: any; isDark: boolean; index: number }> = ({ ite
             textStyles.textSm,
             {
               fontFamily: regularFontFamily,
-            }
+            },
           ]}
           numberOfLines={2}
         >
@@ -118,10 +143,7 @@ const ItemCard: React.FC<{ item: any; isDark: boolean; index: number }> = ({ ite
         </Text>
         <Text
           className="default-text"
-          style={[
-            textStyles.textXl,
-            { fontFamily: interBlackFontFamily }
-          ]}
+          style={[textStyles.textXl, { fontFamily: interBlackFontFamily }]}
           numberOfLines={1}
         >
           {item.value}

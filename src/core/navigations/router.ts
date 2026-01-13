@@ -1,10 +1,10 @@
-import ExpensesUi from "@ui/app/expenses/Expenses.ui";
-import LoginUi from "@ui/auth/login/Login.ui";
-import SplashUi from "@ui/intro/splash/Splash.ui";
-import routes from "./routes";
-import stacks from "./stacks";
+import ExpensesUi from '@ui/app/expenses/Expenses.ui';
+import LoginUi from '@ui/auth/login/Login.ui';
+import SplashUi from '@ui/intro/splash/Splash.ui';
+import routes from './routes';
+import stacks from './stacks';
 export default [
-     {
+  {
     stack: stacks.ONBOARDING,
     route: routes.splash,
     screen: SplashUi,
@@ -12,7 +12,7 @@ export default [
     hideHeaderTitle: false,
     title: '',
   },
-     {
+  {
     stack: stacks.ONBOARDING,
     route: routes.login,
     screen: LoginUi,
@@ -20,7 +20,7 @@ export default [
     hideHeaderTitle: false,
     title: '',
   },
-     {
+  {
     stack: stacks.ONBOARDING,
     route: routes.expenses,
     screen: ExpensesUi,
@@ -28,4 +28,4 @@ export default [
     hideHeaderTitle: false,
     title: '',
   },
-]
+];

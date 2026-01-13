@@ -53,7 +53,7 @@ export async function getBoolean(key: StoreKey): Promise<boolean> {
   try {
     const value = await AsyncStorage.getItem(key);
     // Parse the string "true" or JSON true
-    return value === 'true' || value === '1'; 
+    return value === 'true' || value === '1';
   } catch {
     return false;
   }

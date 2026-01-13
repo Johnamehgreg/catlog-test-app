@@ -23,6 +23,5 @@ export const SearchInput = ({
       style={style}
       rightSection={<IconSearch fill={colors.brand['primary-100']} />}
     />
-
   );
 };

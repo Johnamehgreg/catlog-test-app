@@ -1,8 +1,8 @@
-import { VStack } from "@/components/ui/vstack";
-import { useDarkMode } from "@core/hooks/logic/use-dark-mode";
-import { s } from "@core/utils/scale";
-import React, { useEffect, useRef } from "react";
-import { Animated, StyleSheet, View } from "react-native";
+import { VStack } from '@/components/ui/vstack';
+import { useDarkMode } from '@core/hooks/logic/use-dark-mode';
+import { s } from '@core/utils/scale';
+import React, { useEffect, useRef } from 'react';
+import { Animated, StyleSheet, View } from 'react-native';
 
 interface Props {
   count?: number;
@@ -11,7 +11,7 @@ interface Props {
 export const ExpenseListSkeleton: React.FC<Props> = ({ count = 4 }) => {
   const opacity = useRef(new Animated.Value(0.3)).current;
 
-  const { isDark } = useDarkMode()
+  const { isDark } = useDarkMode();
   useEffect(() => {
     const animation = Animated.loop(
       Animated.sequence([
@@ -25,21 +25,24 @@ export const ExpenseListSkeleton: React.FC<Props> = ({ count = 4 }) => {
           duration: 1000,
           useNativeDriver: true,
         }),
-      ])
+      ]),
     );
     animation.start();
     return () => animation.stop();
   }, [opacity]);
 
+  const skeletonBackground = isDark ? '#1F1F1F' : '#FFFFFF';
+  const secondarySkeletonBg = isDark ? '#2A2A2A' : '#E5E7EB';
 
   return (
     <VStack style={{ gap: s(16) }}>
+      {/* Section Title Skeleton */}
       <Animated.View
-        className={'skeleton-bg'}
         style={[
           {
             height: s(24),
             width: s(120),
+            backgroundColor: secondarySkeletonBg,
             borderRadius: s(4),
             opacity,
             marginBottom: s(8),
@@ -47,26 +50,27 @@ export const ExpenseListSkeleton: React.FC<Props> = ({ count = 4 }) => {
         ]}
       />
 
+      {/* Expense Cards Skeleton */}
       {Array.from({ length: count }).map((_, index) => (
         <Animated.View
           key={index}
-          className={'skeleton-bg'}
           style={[
             styles.card,
             {
+              backgroundColor: skeletonBackground,
               opacity: 1,
             },
           ]}
         >
+          {/* Top Row Skeleton */}
           <View style={styles.topRow}>
             <View style={{ flexDirection: 'row', gap: s(12), flex: 1 }}>
               {/* Receipt Icon Skeleton */}
               <Animated.View
-                className={'skeleton-bg'}
-
                 style={[
                   styles.receiptIconSkeleton,
                   {
+                    backgroundColor: secondarySkeletonBg,
                     opacity,
                   },
                 ]}
@@ -75,11 +79,10 @@ export const ExpenseListSkeleton: React.FC<Props> = ({ count = 4 }) => {
               {/* Title and Amount Skeleton */}
               <View style={{ flex: 1, gap: s(8) }}>
                 <Animated.View
-                  className={'skeleton-bg'}
-
                   style={[
                     styles.titleSkeleton,
                     {
+                      backgroundColor: secondarySkeletonBg,
                       opacity,
                     },
                   ]}
@@ -88,6 +91,7 @@ export const ExpenseListSkeleton: React.FC<Props> = ({ count = 4 }) => {
                   style={[
                     styles.amountSkeleton,
                     {
+                      backgroundColor: secondarySkeletonBg,
                       opacity,
                     },
                   ]}
@@ -97,11 +101,10 @@ export const ExpenseListSkeleton: React.FC<Props> = ({ count = 4 }) => {
 
             {/* Menu Icon Skeleton */}
             <Animated.View
-              className={'skeleton-bg'}
-
               style={[
                 styles.menuIconSkeleton,
                 {
+                  backgroundColor: secondarySkeletonBg,
                   opacity,
                 },
               ]}
@@ -117,14 +120,15 @@ export const ExpenseListSkeleton: React.FC<Props> = ({ count = 4 }) => {
               },
             ]}
           >
-            <View style={{ flexDirection: 'row', gap: s(8), alignItems: 'center' }}>
+            <View
+              style={{ flexDirection: 'row', gap: s(8), alignItems: 'center' }}
+            >
               {/* Avatar Skeleton */}
               <Animated.View
-                className={'skeleton-bg'}
-
                 style={[
                   styles.avatarSkeleton,
                   {
+                    backgroundColor: secondarySkeletonBg,
                     opacity,
                   },
                 ]}
@@ -132,11 +136,10 @@ export const ExpenseListSkeleton: React.FC<Props> = ({ count = 4 }) => {
 
               {/* Recipient Name Skeleton */}
               <Animated.View
-                className={'skeleton-bg'}
-
                 style={[
                   styles.recipientNameSkeleton,
                   {
+                    backgroundColor: secondarySkeletonBg,
                     opacity,
                   },
                 ]}
@@ -146,11 +149,10 @@ export const ExpenseListSkeleton: React.FC<Props> = ({ count = 4 }) => {
             {/* Tag Skeleton (sometimes shown) */}
             {index % 3 !== 0 && (
               <Animated.View
-                className={'skeleton-bg'}
-
                 style={[
                   styles.tagSkeleton,
                   {
+                    backgroundColor: secondarySkeletonBg,
                     opacity,
                   },
                 ]}

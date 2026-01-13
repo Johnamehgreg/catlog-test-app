@@ -5,20 +5,14 @@ import { boldFontFamily, regularFontFamily } from '@core/styles/text-style';
 import { resetNavigation } from '@core/utils/helpers';
 import { rfs, s } from '@core/utils/scale';
 import { useEffect, useRef } from 'react';
-import {
-  Animated,
-  StatusBar,
-  StyleSheet,
-  View
-} from 'react-native';
+import { Animated, StatusBar, StyleSheet, View } from 'react-native';
 
 const SplashUi = () => {
-
-  const { token } = useUserStore()
+  const { token } = useUserStore();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(20)).current;
 
-  const { isDark } = useDarkMode()
+  const { isDark } = useDarkMode();
   // Professional color scheme
   const primaryColor = 'rgb(51, 32, 137)';
   const primaryColorLight = 'rgba(51, 32, 137, 0.08)';
@@ -42,7 +36,6 @@ const SplashUi = () => {
       }),
     ]).start();
 
-    // Navigate after 2 seconds
     const timer = setTimeout(async () => {
       const initialRoute = token ? routes.expenses : routes.login;
 
@@ -53,7 +46,9 @@ const SplashUi = () => {
   }, []);
 
   return (
-    <View style={[styles.container, { backgroundColor: screenBackgroundColor }]}>
+    <View
+      style={[styles.container, { backgroundColor: screenBackgroundColor }]}
+    >
       <StatusBar
         barStyle={isDark ? 'light-content' : 'dark-content'}
         backgroundColor={screenBackgroundColor}
@@ -71,8 +66,12 @@ const SplashUi = () => {
       >
         {/* Logo Container */}
         <View style={styles.logoContainer}>
-          <View style={[styles.logoCircle, { backgroundColor: primaryColorLight }]}>
-            <View style={[styles.logoInnerCircle, { backgroundColor: accentColor }]} />
+          <View
+            style={[styles.logoCircle, { backgroundColor: primaryColorLight }]}
+          >
+            <View
+              style={[styles.logoInnerCircle, { backgroundColor: accentColor }]}
+            />
           </View>
         </View>
 

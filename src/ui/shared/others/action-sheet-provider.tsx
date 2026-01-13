@@ -59,9 +59,9 @@ export const ActionSheetProvider: React.FC<Props> = ({
     const query = queryText.toLowerCase();
 
     return list?.filter(({ name, label, description }) =>
-      [name, label, description].some(
-        field => field?.toLowerCase().includes(query)
-      )
+      [name, label, description].some(field =>
+        field?.toLowerCase().includes(query),
+      ),
     );
   }, [list, queryText]);
 
@@ -90,7 +90,7 @@ export const ActionSheetProvider: React.FC<Props> = ({
             { paddingBottom: s(150), flexGrow: 1 },
             listWrapperStyle,
           ]}
-           className='bg-[#FAFAFA] dark:bg-[#1f2937f7] rounded-2xl p-4 mt-4'
+          className="bg-[#FAFAFA] dark:bg-[#1f2937f7] rounded-2xl p-4 mt-4"
           renderItem={({ item }) => (
             <Box className="!w-full">{listItem?.(item)}</Box>
           )}
@@ -101,7 +101,17 @@ export const ActionSheetProvider: React.FC<Props> = ({
         />
       </View>
     );
-  }, [filteredList, extraData, listItem, topListComponent, listFooterComponent, listWrapperStyle, listClassNameWrapper, emptyComponent, emptyMessage]);
+  }, [
+    filteredList,
+    extraData,
+    listItem,
+    topListComponent,
+    listFooterComponent,
+    listWrapperStyle,
+    listClassNameWrapper,
+    emptyComponent,
+    emptyMessage,
+  ]);
 
   return (
     <ActionSheetComponent open={open} close={onClose}>
@@ -109,11 +119,15 @@ export const ActionSheetProvider: React.FC<Props> = ({
         {title && (
           <Box>
             <Text
-              style={[textStyles.textBase, {
-                fontFamily: boldFontFamily,
-                marginBottom: s(15)
-              }]}
-              className="action-sheet-title-text">
+              style={[
+                textStyles.textBase,
+                {
+                  fontFamily: boldFontFamily,
+                  marginBottom: s(15),
+                },
+              ]}
+              className="action-sheet-title-text"
+            >
               {title}
             </Text>
           </Box>

@@ -25,7 +25,7 @@ const createAxiosInstance = (
   if (withAuth) {
     instance.interceptors.request.use(
       async config => {
-        const token =useUserStore.getState().token as string
+        const token = useUserStore.getState().token as string;
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -41,10 +41,10 @@ const createAxiosInstance = (
       return response;
     },
     async error => {
-      console.error('Response Error:', {...error});
+      console.error('Response Error:', { ...error });
 
       if (error?.response?.status === 401 && withAuth) {
-        const token =useUserStore.getState().token as string
+        const token = useUserStore.getState().token as string;
         if (token) {
           handleLogOut();
         }

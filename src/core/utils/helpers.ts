@@ -4,7 +4,7 @@ import { useUserStore } from '@core/store/user.store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CommonActions } from '@react-navigation/native';
 import { QueryClient } from '@tanstack/react-query';
-import React from "react";
+import React from 'react';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +25,10 @@ export function navigate(name: string, params?: any) {
 export function goBack() {
   navigationRef.current?.goBack();
 }
-export function resetNavigation(routes: Array<{ name: string; params?: any }>, index = 0) {
+export function resetNavigation(
+  routes: Array<{ name: string; params?: any }>,
+  index = 0,
+) {
   navigationRef.current?.dispatch(
     CommonActions.reset({
       index,
@@ -45,31 +48,16 @@ export const handleLogOut = () => {
   // Clear React Query cache
 
   resetNavigation([{ name: routes.login }]);
-}
-
-
+};
 
 export const getRandomColor = (list: string[]): string => {
   return list[Math.floor(Math.random() * list.length)];
 };
 
-
-const COLORS = [
-  '#EF940F',
-  '#39B588',
-  '#BF0637',
-  '#A78BFA',
-  '#FCD34D',
-];
-const RESCOLORS = [
-  '#BF0637',
-  '#EF940F',
-  '#F35508',
-  '#39B588',
-
-];
-export const color = getRandomColor(COLORS)
-export const resColor = getRandomColor(RESCOLORS)
+const COLORS = ['#EF940F', '#39B588', '#BF0637', '#A78BFA', '#FCD34D'];
+const RESCOLORS = ['#BF0637', '#EF940F', '#F35508', '#39B588'];
+export const color = getRandomColor(COLORS);
+export const resColor = getRandomColor(RESCOLORS);
 export const formatNumberThousand = (value: string) => {
   const num = Number(value);
   if (isNaN(num)) return value; // Return original if not a number
@@ -100,9 +88,3 @@ export const formatNumber = (
     return `${sign}${(absNum / 1e12).toFixed(decimalPlaces)}T`;
   }
 };
-
-
-
-
-
-

@@ -6,10 +6,10 @@
  * dimensions. This helps build UIs that adapt to various device sizes.
  */
 
-import {Dimensions, PixelRatio} from 'react-native';
+import { Dimensions, PixelRatio } from 'react-native';
 
 // Get the device screen dimensions
-export const {width: screenWidth, height: screenHeight} =
+export const { width: screenWidth, height: screenHeight } =
   Dimensions.get('window');
 
 // Determine the short and long dimensions regardless of orientation
@@ -114,4 +114,4 @@ export const rw = responsiveWidth;
 export const rh = responsiveHeight;
 export const gs = generalScale;
 export const rbr = responsiveBorderRadius;
-// export const 
+// export const

@@ -18,13 +18,13 @@ export const ActionSheetLoaderWrapper: React.FC<Props> = ({
   queryData,
   children,
 }) => {
-
   if (queryData?.isLoading)
     return (
       <View
         style={{
           height: s(100),
-        }}>
+        }}
+      >
         <Center className="flex items-center justify-center h-full ">
           <Spinner size="large" color="#000" />
         </Center>
@@ -36,12 +36,13 @@ export const ActionSheetLoaderWrapper: React.FC<Props> = ({
         style={{
           height: s(100),
           marginBottom: s(30),
-        }}>
+        }}
+      >
         <Center className="flex items-center justify-center h-full gap-3 ">
           <Text style={textStyles.textSm}>Something went wrong try again</Text>
           <AppBtn
             onPress={queryData?.refetch}
-            btnStyle={{height: s(35)}}
+            btnStyle={{ height: s(35) }}
             title="Try again"
           />
         </Center>

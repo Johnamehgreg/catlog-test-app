@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import {s} from '@core/utils/scale';
-import {StyleSheet} from 'react-native';
+import { s } from '@core/utils/scale';
+import { StyleSheet } from 'react-native';
 
 export const globalStyles = StyleSheet.create({
   appHorizontalPadding: {

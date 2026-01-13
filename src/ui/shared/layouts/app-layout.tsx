@@ -8,7 +8,7 @@ import {
   StyleProp,
   StyleSheet,
   View,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -43,15 +43,14 @@ export const AppLayout = ({
   bottomComponent,
   scrollRef,
 }: AppLayoutProps) => {
-
-
   const renderContent = () => (
     <View
       style={[
         styles.container,
         bgBarStyle ? { backgroundColor: bgBarStyle } : {},
         contentStyle,
-      ]}>
+      ]}
+    >
       <StatusBar
         backgroundColor={bgBarStyle || 'transparent'}
         barStyle={statusBarStyle}
@@ -66,7 +65,8 @@ export const AppLayout = ({
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
-          style={styles.scrollView}>
+          style={styles.scrollView}
+        >
           <Box style={[styles.content, style]} className={className}>
             {children}
           </Box>
@@ -87,7 +87,8 @@ export const AppLayout = ({
         styles.safeArea,
         bgBarStyle ? { backgroundColor: bgBarStyle } : {},
       ]}
-      className={wrapperClassName}>
+      className={wrapperClassName}
+    >
       {keyboardAvoiding ? (
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -98,7 +99,8 @@ export const AppLayout = ({
           style={[
             styles.container,
             bgBarStyle ? { backgroundColor: bgBarStyle } : {},
-          ]}>
+          ]}
+        >
           {renderContent()}
         </KeyboardAvoidingView>
       ) : (

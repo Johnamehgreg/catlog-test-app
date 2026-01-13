@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, {Line, SvgProps} from 'react-native-svg';
+import Svg, { Line, SvgProps } from 'react-native-svg';
 export const IconNotFound = (props: SvgProps) => (
   <Svg width={15} height={8} viewBox="0 0 15 8" fill="none" {...props}>
     <Line
