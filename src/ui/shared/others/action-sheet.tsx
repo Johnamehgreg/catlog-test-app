@@ -54,11 +54,11 @@ export const ActionSheetComponent: React.FC<Props> = ({
             height: s(30),
             width: s(73),
             top: s(-50),
-            right: s(-160),
+            right: s(10),
           }}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           onPress={() => close()}>
-          <Box className='flex-row items-center justify-center '
+          <Box className='flex-row h-full items-center justify-center '
             style={{
               gap: s(3)
             }}

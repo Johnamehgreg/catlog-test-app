@@ -23,7 +23,7 @@
 }
 
 .currency-card {
-  @apply border-[#E5E5E5] border-r-[0.5px];
+  @apply  items-center justify-center border-[#E5E5E5]  border-r-[0.5px];
 }
 
 .primary-bg {

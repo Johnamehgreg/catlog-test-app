@@ -16,7 +16,7 @@ const Providers = ({ children }: PropsWithChildren) => {
   return (
     <TanstackQueryProvider>
       <SafeAreaProvider>
-        <GluestackUIProvider>{children}</GluestackUIProvider>
+        <GluestackUIProvider mode="light">{children}</GluestackUIProvider>
       </SafeAreaProvider>
     </TanstackQueryProvider>
   );

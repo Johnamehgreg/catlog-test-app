@@ -167,7 +167,7 @@ const AppInput: React.FC<Props> = props => {
               style={{
                 position: 'absolute',
                 left: s(12),
-                top: isTextArea ? s(26) : s(24),
+                top: isTextArea ? s(20) : s(20),
                 transform: [
                   { translateY: labelTranslateY },
                   { scale: labelScale },
@@ -223,8 +223,9 @@ const AppInput: React.FC<Props> = props => {
                 <InputSlot>
                   <Box style={{
                     minHeight: s(50),
-                  }} className='currency-card'>
-                    <Text className='text-[#656565] dark:text-[#dcdcdc]' style={textStyles.textSm}>
+                    paddingRight: s(10)
+                  }} className='currency-card '>
+                    <Text className='text-[#656565] dark:text-[#dcdcdc] !font-bold' style={textStyles.textSm}>
                       {currency}
                     </Text>
                   </Box>
